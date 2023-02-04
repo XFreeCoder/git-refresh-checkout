@@ -2,6 +2,14 @@ import * as vscode from "vscode";
 
 let watcher: vscode.FileSystemWatcher | undefined;
 
+const closeAllTabs = async () => {
+	return await Promise.all(
+		vscode.window.tabGroups.all.map((group) =>
+			vscode.window.tabGroups.close(group)
+		)
+	);	
+}
+
 const startWatchGitHead = () => {
   const projectRoots = vscode.workspace.workspaceFolders;
   if (projectRoots) {
@@ -9,14 +17,7 @@ const startWatchGitHead = () => {
       .map((root) => root.uri.path)
       .join(",")}}/.git/HEAD`;
     watcher = vscode.workspace.createFileSystemWatcher(uri, false, true, true);
-    watcher.onDidCreate(async (e) => {
-      console.log({ e });
-      await Promise.all(
-        vscode.window.tabGroups.all.map((group) =>
-          vscode.window.tabGroups.close(group)
-        )
-      );
-    });
+    watcher.onDidCreate(closeAllTabs);
   }
 };
 
