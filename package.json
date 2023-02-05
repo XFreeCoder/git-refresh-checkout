@@ -2,6 +2,7 @@
   "name": "git-refresh-checkout",
   "displayName": "git-refresh-checkout",
   "description": "Auto close all VS Code tabs after git branch changed",
+  "repository": "https://github.com/XFreeCoder/git-refresh-checkout",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.75.0"
@@ -13,11 +14,12 @@
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
+  "publisher": "thomaszdxsn",
   "contributes": {
     "configuration": {
       "title": "git-refresh-checkout",
       "properties": {
-        "git-refresh-checkout.autoCollapseFolders": {
+      "git-refresh-checkout.autoCollapseFolders": {
           "type": "boolean",
           "default": false,
           "description": "Auto close all folders after git branch changed"
