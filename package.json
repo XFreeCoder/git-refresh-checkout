@@ -13,7 +13,18 @@
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
-  "contributes": {},
+  "contributes": {
+    "configuration": {
+      "title": "git-refresh-checkout",
+      "properties": {
+        "git-refresh-checkout.autoCollapseFolders": {
+          "type": "boolean",
+          "default": false,
+          "description": "Auto close all folders after git branch changed"
+        }
+      }
+    }
+  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
