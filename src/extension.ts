@@ -2,13 +2,12 @@ import * as vscode from "vscode";
 
 let watcher: vscode.FileSystemWatcher | undefined;
 
-const closeAllTabs = async () => {
-	return await Promise.all(
-		vscode.window.tabGroups.all.map((group) =>
-			vscode.window.tabGroups.close(group)
-		)
-	);	
-}
+const onBranchChange = async () => {
+  await vscode.commands.executeCommand(
+    "workbench.files.action.collapseExplorerFolders"
+  );
+  await vscode.commands.executeCommand("workbench.action.closeAllEditors");
+};
 
 const startWatchGitHead = () => {
   const projectRoots = vscode.workspace.workspaceFolders;
@@ -17,7 +16,7 @@ const startWatchGitHead = () => {
       .map((root) => root.uri.path)
       .join(",")}}/.git/HEAD`;
     watcher = vscode.workspace.createFileSystemWatcher(uri, false, true, true);
-    watcher.onDidCreate(closeAllTabs);
+    watcher.onDidCreate(onBranchChange);
   }
 };
 
